@@ -3,6 +3,7 @@ package com.kindgeek.company_management.service;
 import com.kindgeek.company_management.entity.Department;
 import com.kindgeek.company_management.entity.Person;
 import com.kindgeek.company_management.entity.Position;
+import com.kindgeek.company_management.entity.Project;
 import com.kindgeek.company_management.repository.DepartmentRepository;
 import com.kindgeek.company_management.repository.PersonRepository;
 import com.kindgeek.company_management.repository.PositionRepository;
@@ -51,38 +52,34 @@ public class PersonService {
         return personRepository.findById(id);
     }
 
-//    public Person addProjectToPerson(Long person_id, Long project_id) {
-////        Optional<Person> personToUpdate = personRepository.findById(person_id);
-////        Optional<Project> projectToUpdate = projectRepository.findById(project_id);
-////        if (personToUpdate.isPresent() && projectToUpdate.isPresent()) {
-////            Person person = personToUpdate.get();
-////            Project project = projectToUpdate.get();
-////            person.addProject(project);
-//////            Person updatedPerson = new Person();
-//////            updatedPerson.setFirstName(person.getFirstName());
-//////            updatedPerson.setLastName((person.getLastName()));
-//////            updatedPerson.addProject(project);
-//////            personRepository.save(updatedPerson);
-////            personRepository.save(person);
-////            return person;
-////        }
-////        return null;
-//        return personRepository.findById(person_id)
-//                .map(person -> {
-//                    person.addProject(projectRepository.findById(project_id).orElse(null));
-//                    return personRepository.save(person);
-//                })
-//                .orElse(null);
-//    }
 
-//    public Person setPosition(Long person_id, Long position_id) {
-//        return personRepository.findById(person_id)
-//                .map(person -> {
-//                    person.setPosition(positionRepository.findById(position_id).orElse(null));
-//                    return personRepository.save(person);
-//                })
-//                .orElse(null);
-//    }
+
+    public Person setPositionWithRequestParam(Long person_id, Long position_id) {
+        return personRepository.findById(person_id)
+                .map(person -> {
+                    person.setPosition(positionRepository.findById(position_id).orElse(null));
+                    return personRepository.save(person);
+                })
+                .orElse(null);
+    }
+
+    public Person setPosition(Long person_id, Position position) {
+        return personRepository.findById(person_id)
+                .map(person -> {
+                    person.setPosition(position);
+                    return personRepository.save(person);
+                })
+                .orElse(null);
+    }
+
+    public Person setDepartmentWithRequestParam(Long person_id, Long department_id) {
+        return personRepository.findById(person_id)
+                .map(person -> {
+                    person.setDepartment(departmentRepository.findById(department_id).orElse(null));
+                    return personRepository.save(person);
+                })
+                .orElse(null);
+    }
 
     public Person setDepartment(Long person_id, Department department) {
         return personRepository.findById(person_id)
@@ -91,6 +88,24 @@ public class PersonService {
                 return personRepository.save(person);
             })
             .orElse(null);
+    }
+
+    public Person setProjectWithRequestParam(Long person_id, Long project_id) {
+        return personRepository.findById(person_id)
+                .map(person -> {
+                    person.setProject(projectRepository.findById(project_id).orElse(null));
+                    return personRepository.save(person);
+                })
+                .orElse(null);
+    }
+
+    public Person setProject(Long person_id, Project project) {
+        return personRepository.findById(person_id)
+                .map(person -> {
+                    person.setProject(project);
+                    return personRepository.save(person);
+                })
+                .orElse(null);
     }
 
     public void deletePerson(Long id) {
@@ -104,10 +119,12 @@ public class PersonService {
                     String lastName = newPerson.getLastName();
                     Position position = newPerson.getPosition();
                     Department department = newPerson.getDepartment();
+                    Project project = newPerson.getProject();
                     if (firstName != null) person.setFirstName(firstName);
                     if (lastName != null) person.setLastName(lastName);
                     if (position != null) person.setPosition(position);
                     if (department != null) person.setDepartment(department);
+                    if (project != null) person.setProject(project);
                     return personRepository.save(person);
                 })
                 .orElseGet(() -> {

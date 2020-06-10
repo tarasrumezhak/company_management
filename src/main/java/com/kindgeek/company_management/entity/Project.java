@@ -1,22 +1,23 @@
 package com.kindgeek.company_management.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-//@Table(name = "projects")
 public class Project {
 
     @Id
+    @Column(name="project_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long project_id;
+    private long projectId;
 
     private String projectName;
 
-//    @JsonBackReference
-//    @JsonIgnore
-    @ManyToMany(mappedBy = "projects")
-    private Set<Person> persons;
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    private Set<Person> persons = new HashSet<>();
 
     public String getProjectName() {
         return projectName;
@@ -27,7 +28,7 @@ public class Project {
         return this;
     }
 
-//    @JsonManagedReference(value = "project-ref")
+    @JsonManagedReference(value = "project-ref")
     public Set<Person> getPersons() {
         return persons;
     }
@@ -37,7 +38,12 @@ public class Project {
         return this;
     }
 
-    public long getProject_id() {
-        return project_id;
+    public long getProjectId() {
+        return projectId;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s project", this.projectName);
     }
 }

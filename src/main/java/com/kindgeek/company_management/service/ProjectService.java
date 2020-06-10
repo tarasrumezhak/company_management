@@ -18,8 +18,8 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    public void addProject(Project project) {
-        projectRepository.save(project);
+    public Project addProject(Project project) {
+        return projectRepository.save(project);
     }
 
     public Iterable<Project> getAllProjects() {

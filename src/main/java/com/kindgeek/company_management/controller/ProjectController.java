@@ -3,10 +3,9 @@ package com.kindgeek.company_management.controller;
 import com.kindgeek.company_management.entity.Project;
 import com.kindgeek.company_management.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping(path = "/api/project")
 public class ProjectController {
 
@@ -18,9 +17,8 @@ public class ProjectController {
     }
 
     @PostMapping(path = "/add")
-    public @ResponseBody String addNewProject(@RequestBody Project project) {
-        projectService.addProject(project);
-        return "Saved";
+    public @ResponseBody Project addNewProject(@RequestBody Project project) {
+        return projectService.addProject(project);
     }
 
     @GetMapping

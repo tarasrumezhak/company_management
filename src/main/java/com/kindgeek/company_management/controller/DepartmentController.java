@@ -3,10 +3,9 @@ package com.kindgeek.company_management.controller;
 import com.kindgeek.company_management.entity.Department;
 import com.kindgeek.company_management.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping(path = "/api/department")
 public class DepartmentController {
 
