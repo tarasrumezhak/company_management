@@ -29,4 +29,21 @@ public class ProjectService {
     public Optional<Project> getProjectById(Long id) {
         return projectRepository.findById(id);
     }
+
+    public void deleteProject(Long id) {
+        projectRepository.deleteById(id);
+    }
+
+    public Project updateProject(Long id, Project newProject) {
+        return projectRepository.findById(id)
+                .map(project -> {
+                    String projectName = newProject.getProjectName();
+                    if (projectName != null) project.setProjectName(projectName);
+                    return projectRepository.save(project);
+                })
+                .orElseGet(() -> {
+                    newProject.setProjectId(id);
+                    return projectRepository.save(newProject);
+                });
+    }
 }

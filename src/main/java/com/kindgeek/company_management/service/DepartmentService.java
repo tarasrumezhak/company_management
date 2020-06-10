@@ -39,7 +39,8 @@ public class DepartmentService {
     public Department updateDepartment(Long id, Department newDepartment) {
         return departmentRepository.findById(id)
                 .map(department -> {
-                    department.setDepartmentName(newDepartment.getDepartmentName());
+                    String departmentName = newDepartment.getDepartmentName();
+                    if (departmentName != null) department.setDepartmentName(departmentName);
                     return departmentRepository.save(department);
                 })
                 .orElseGet(() -> {

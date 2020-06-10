@@ -37,8 +37,10 @@ public class PositionService {
     public Position updatePosition(Long id, Position newPosition) {
         return positionRepository.findById(id)
                 .map(position -> {
-                    position.setProficiency(newPosition.getProficiency());
-                    position.setTechnology(newPosition.getTechnology());
+                    String proficiency = newPosition.getProficiency();
+                    String technology = newPosition.getTechnology();
+                    if (proficiency != null) position.setProficiency(proficiency);
+                    if (technology != null) position.setTechnology(technology);
                     return positionRepository.save(position);
                 })
                 .orElseGet(() -> {
@@ -46,8 +48,6 @@ public class PositionService {
                     return positionRepository.save(newPosition);
                 });
     }
-
-
 
 
 }

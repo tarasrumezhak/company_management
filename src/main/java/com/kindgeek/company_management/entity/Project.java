@@ -42,6 +42,11 @@ public class Project {
         return projectId;
     }
 
+    public Project setProjectId(long projectId) {
+        this.projectId = projectId;
+        return this;
+    }
+
     @Override
     public String toString() {
         return String.format("%s project", this.projectName);
