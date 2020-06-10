@@ -37,17 +37,6 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-//    public int updatePerson(long person_id, Person newPerson) {
-//        return personRepository.findById(person_id)
-//                .map(person -> {
-//                    person.setFirstName(newPerson.getFirstName());
-//                    person.setLastName(newPerson.getLastName());
-//                    person.setProjects(newPerson.getProjects());
-//                    personRepository.save(person);
-//                    return 1;
-//                }).orElse(0);
-//    }
-
     public Optional<Person> getPersonById(Long id) {
         return personRepository.findById(id);
     }

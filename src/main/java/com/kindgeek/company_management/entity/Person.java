@@ -3,6 +3,7 @@ package com.kindgeek.company_management.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.Objects;
 
 @Entity
@@ -58,11 +59,14 @@ public class Person {
         this.department = department;
     }
 
-//    public HashMap<String, String> getDepartmentInfo() {
-//        HashMap<String, String> department = new HashMap<>();
-//        department.put(this.department.toString(), "/api/department/" + this.department.getDepartmentId());
-//        return department;
-//    }
+    public HashMap<String, String> getDepartmentInfo() {
+        if (this.department != null) {
+            HashMap<String, String> department = new HashMap<>();
+            department.put(this.department.toString(), "/api/department/" + this.department.getDepartmentId());
+            return department;
+        }
+        return null;
+    }
 
 
     @JsonBackReference(value = "position-ref")
@@ -74,11 +78,14 @@ public class Person {
         this.position = position;
     }
 
-//    public HashMap<String, String> getPositionInfo() {
-//        HashMap<String, String> position = new HashMap<>();
-//        position.put(this.position.toString(), "/api/position/" + this.position.getPositionId());
-//        return position;
-//    }
+    public HashMap<String, String> getPositionInfo() {
+        if (this.position != null) {
+            HashMap<String, String> positionMap = new HashMap<>();
+            positionMap.put(this.position.toString(), "/api/position/" + this.position.getPositionId());
+            return positionMap;
+        }
+        return null;
+    }
 
 
     @JsonBackReference(value = "project-ref")
@@ -90,11 +97,14 @@ public class Person {
         this.project = project;
     }
 
-//    public HashMap<String, String> getProjectInfo() {
-//        HashMap<String, String> project = new HashMap<>();
-//        project.put(this.project.toString(), "/api/project/" + this.project.getProjectId());
-//        return project;
-//    }
+    public HashMap<String, String> getProjectInfo() {
+        if (this.project != null) {
+            HashMap<String, String> project = new HashMap<>();
+            project.put(this.project.toString(), "/api/project/" + this.project.getProjectId());
+            return project;
+        }
+        return null;
+    }
 
 
     @Override
